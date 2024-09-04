@@ -1,32 +1,39 @@
-import express from "express";
+const express = require('express');
+const app = express();
+
+const path = require('path');
+
+const http = require('http');
+const server = http.createServer(app);
+
 const socketIO = require('socket.io');
 const io = socketIO(server);
 
+app.use('/static', express.static(path.join(__dirname, '/static')));
 
-const app = express();
-const port = 9000;
-app.use("/", (req, res) => {
-  res.json({ message: "Hi" });
-});
-
-io.on('connection',(socket)=>{
-  console.log('a player connected');
-  socket.on('disconnect', ()=>{
-      console.log('player disconnected');
-  })
-
-  socket.on('player name', (name)=>{
-      io.emit('pn', name);
-  })
-  socket.on('player selected', obj =>{
-      // io.emit('ps',obj);
-      socket.broadcast.emit('ps',obj);
-  })
-  socket.on('game reset',()=>{
-      socket.broadcast.emit('gr');
-  })
+app.get('/', (req, res)=>{
+    res.sendFile(__dirname + '/client.html');
+    // res.send('<h1>hello</h1>');
 })
 
-app.listen(9000, () => {
-  console.log(`Starting Server on Port ${port}`);
-});
+io.on('connection',(socket)=>{
+    console.log('a player connected');
+    socket.on('disconnect', ()=>{
+        console.log('player disconnected');
+    })
+
+    socket.on('player name', (name)=>{
+        io.emit('pn', name);
+    })
+    socket.on('player selected', obj =>{
+        // io.emit('ps',obj);
+        socket.broadcast.emit('ps',obj);
+    })
+    socket.on('game reset',()=>{
+        socket.broadcast.emit('gr');
+    })
+})
+
+server.listen(8000 , ()=>{
+    console.log('game running on 8000');
+})
