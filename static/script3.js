@@ -1,6 +1,6 @@
 // let socket = io();
 const socket = io("https://vercel-demo-pio2.vercel.app/", {
-  transports: ["polling"],
+    transports: ["polling", "websocket"]
 });
 
 let name = prompt('enter your name to play with other players :');
