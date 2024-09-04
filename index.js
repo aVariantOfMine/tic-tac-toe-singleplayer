@@ -11,6 +11,12 @@ const socketIO = require('socket.io');
 
 const io = require("socket.io")(server, {
   transports: ["polling"], // Use polling instead of WebSockets
+  cors: {
+    origin: "https://your-vercel-url.vercel.app", // Adjust to match your client URL
+    methods: ["GET", "POST"],
+    allowedHeaders: ["set Access-Control-Allow-Origin 'https://your-vercel-url.vercel.app'"],
+    credentials: true
+  }
 });
 
 app.use('/static', express.static(path.join(__dirname, '/static')));
