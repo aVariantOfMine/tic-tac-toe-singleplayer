@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/aVariantOfMine/vercel-demo#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
   }
 }
