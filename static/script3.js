@@ -1,4 +1,7 @@
-let socket = io();
+// let socket = io();
+const socket = io("https://your-vercel-url.vercel.app", {
+  transports: ["polling"],
+});
 
 let name = prompt('enter your name to play with other players :');
 if (name != '') {

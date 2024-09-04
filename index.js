@@ -7,7 +7,11 @@ const http = require('http');
 const server = http.createServer(app);
 
 const socketIO = require('socket.io');
-const io = socketIO(server);
+// const io = socketIO(server);
+
+const io = require("socket.io")(server, {
+  transports: ["polling"], // Use polling instead of WebSockets
+});
 
 app.use('/static', express.static(path.join(__dirname, '/static')));
 
